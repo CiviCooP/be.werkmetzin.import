@@ -251,9 +251,9 @@ function civicrm_api3_job_importklanten($params) {
     echo('') . '<br/>' . PHP_EOL;
     
     
-    if($i > 1){
+    /*if($i > 1){
       exit();
-    }   
+    }*/
     
     $i++;
   }
