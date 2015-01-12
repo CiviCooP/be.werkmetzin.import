@@ -51,11 +51,7 @@ function civicrm_api3_job_importklanten($params) {
       $coaches[$dao->CoachId]['contact_id'] = $dao->contact_id;
     }
   }
-  
-  /*echo('<pre>');
-  print_r($coaches);
-  echo('</pre>');*/
-  
+   
   // get all locaties
   $sql = "SELECT * FROM locaties";
   $dao = CRM_Core_DAO::executeQuery($sql);
@@ -69,29 +65,26 @@ function civicrm_api3_job_importklanten($params) {
       $locaties[$dao->LocatieId]['group_id'] = $dao->group_id;
     }
   }
-  
-  /*echo('<pre>');
-  print_r($locaties);
-  echo('</pre>');*/
-  
+    
   // loop trough all klanten and aan group and relationship coached by
   $sql = "SELECT * FROM klanten";
   $dao = CRM_Core_DAO::executeQuery($sql);
   
   $error = array();
-  $error['result'] = array();
+  $error['first_name'] = array();
+  $error['last_name'] = array();
   $error['contact'] = array();
-  $error['coaches'] = array();
+  $error['group_id'] = array();
   $error['locaties'] = array();
+  $error['coach_id'] = array();
+  $error['relationship_getsingle'] = array();
+  $error['start_date'] = array();
+  $error['end_date'] = array();
+  $error['relationship'] = array();
   
   $i = 0;
   
-  while ($dao->fetch()) {
-    
-    /*echo('<pre>');
-    print_r($dao);
-    echo('</pre>');*/
-    
+  while ($dao->fetch()) {    
     echo('Klantcode: ' . $dao->Klantcode) . '<br/>' . PHP_EOL;
     
     // get contact_id from civicrm
@@ -108,11 +101,7 @@ function civicrm_api3_job_importklanten($params) {
     $data['intake'] = trim($dao->Intake);
     $data['minbehaald'] = trim($dao->MinBehaald);
     $data['synthese'] = trim($dao->Synthese);
-    
-    /*echo('<pre>');
-    print_r($data);
-    echo('</pre>');*/
-    
+        
     if(!isset($data['first_name']) or empty($data['first_name'])){
       echo('Error. Klantcode: ' . $dao->Klantcode . '. No first name !') . '<br/>' . PHP_EOL;
       $error['first_name'][$dao->Klantcode] = 'Error. Klantcode: ' . $dao->Klantcode . '. No first name !';
@@ -132,11 +121,7 @@ function civicrm_api3_job_importklanten($params) {
     if(isset($data['street_address']) and !empty($data['street_address'])){
       $params['street_address'] = $data['street_address'];
     }
-    
-    /*echo('<pre>');
-    print_r($params);
-    echo('</pre>');*/
-    
+        
     try{
       $result = civicrm_api3('Contact', 'getsingle', $params);
     }catch (Exception $e) {
@@ -144,11 +129,7 @@ function civicrm_api3_job_importklanten($params) {
       $error['contact'][$dao->Klantcode] = 'Error Contact Single. Klantcode: ' . $dao->Klantcode . '. ' .$e->getMessage();
       continue;
     } 
-    
-    /*echo('$result<pre>');
-    print_r($result);
-    echo('</pre>');*/
-    
+        
     if(isset($result['is_error']) and $result['is_error']){
       echo('Error Contact Single is_error. Klantcode: ' . $dao->Klantcode . '. ' . $result['error_message']) . '<br/>' . PHP_EOL;
       $error['contact'][$dao->Klantcode] = 'Error Contact Single is_error. Klantcode: ' . $dao->Klantcode . '. ' . $result['error_message'];
