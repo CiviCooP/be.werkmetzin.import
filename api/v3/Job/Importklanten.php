@@ -228,11 +228,17 @@ function civicrm_api3_job_importklanten($params) {
       // start_date
       if(isset($data['intake']) and !empty($data['intake']) and '0000-00-00' != $data['intake']){
         $params['start_date'] = $data['intake'];
+      }else {
+        echo('Error. Klantcode: ' . $dao->Klantcode . '. No start date !') . '<br/>' . PHP_EOL;
+        $error['start_date'][$dao->Klantcode] = 'Error. Klantcode: ' . $dao->Klantcode . '. No start date !';
       }
       
       // end_date
       if(isset($data['synthese']) and !empty($data['synthese']) and '0000-00-00' != $data['synthese']){
         $params['end_date'] = $data['synthese'];
+      }else {
+        echo('Error. Klantcode: ' . $dao->Klantcode . '. No end date !') . '<br/>' . PHP_EOL;
+        $error['end_date'][$dao->Klantcode] = 'Error. Klantcode: ' . $dao->Klantcode . '. No end date !';
       }
       
       try{
