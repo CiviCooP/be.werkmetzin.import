@@ -90,6 +90,7 @@ function civicrm_api3_job_importklanten($params) {
     // get contact_id from civicrm
     $contact_id = 0;
     
+    $result = '';
     $params = array();
     $params['sequential'] = 1;
     $params['contact_sub_type'] = 'Klant';
@@ -140,6 +141,7 @@ function civicrm_api3_job_importklanten($params) {
     echo('contact_id: ' . $contact_id) . '<br/>' . PHP_EOL;
     
     // add contact to group
+    $result = '';
     $params = array();
     $params['sequential'] = 1;
     $params['status'] = 'Added';
@@ -172,6 +174,7 @@ function civicrm_api3_job_importklanten($params) {
     }
     
     // add relationship to contact
+    $result = '';
     $params = array();
     $params['sequential'] = 1;
     $params['is_active'] = 1;
@@ -223,6 +226,10 @@ function civicrm_api3_job_importklanten($params) {
       }
       
       try{
+        echo('Relationship create $params:<pre>');
+        print_r($params);
+        echo('</pre>');
+        
         $result = civicrm_api3('Relationship', 'create', $params);
       }catch (Exception $e) {
         echo ('Error Relationship create. Klantcode: ' . $dao->Klantcode . '. ' .$e->getMessage()) . '<br/>' . PHP_EOL;
@@ -237,6 +244,11 @@ function civicrm_api3_job_importklanten($params) {
     
     echo('') . '<br/>' . PHP_EOL;
     
+    echo str_repeat(' ',1024*64);
+    
+    flush();
+    ob_flush();
+    sleep(1);
     
     /*if($i > 1){
       exit();
