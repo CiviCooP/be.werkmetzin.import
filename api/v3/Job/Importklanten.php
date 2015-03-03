@@ -226,9 +226,9 @@ function civicrm_api3_job_importklanten($params) {
       }
       
       try{
-        echo('Relationship create $params:<pre>');
+        /*echo('Relationship create $params:<pre>');
         print_r($params);
-        echo('</pre>');
+        echo('</pre>');*/
         
         $result = civicrm_api3('Relationship', 'create', $params);
       }catch (Exception $e) {
