@@ -203,7 +203,7 @@ function civicrm_api3_job_importklanten($params) {
       
       if(isset($result['is_error']) and $result['is_error']){
         echo('Error Relationship getsingle is_error. Klantcode: ' . $dao->Klantcode . '. ' . $result['error_message']) . '<br/>' . PHP_EOL;
-        $error['relationship_getsingle'][$dao->Klantcode] = 'Error Relationship create is_error. Klantcode: ' . $dao->Klantcode . '. ' . $result['error_message'];
+        $error['relationship_getsingle'][$dao->Klantcode] = 'Error Relationship getsingle is_error. Klantcode: ' . $dao->Klantcode . '. ' . $result['error_message'];
         
       }else {
         $params['id'] = $result['id'];
