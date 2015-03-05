@@ -218,8 +218,8 @@ function civicrm_api3_job_importklanten($params) {
       }
       
       // end_date
-      if(isset($data['synthese']) and !empty($data['synthese']) and '0000-00-00' != $data['synthese']){
-        $params['end_date'] = $data['synthese'];
+      if(isset($data['minbehaald']) and !empty($data['minbehaald']) and '0000-00-00' != $data['minbehaald']){
+        $params['end_date'] = $data['minbehaald'];
       }else {
         echo('Error. Klantcode: ' . $dao->Klantcode . '. No end date !') . '<br/>' . PHP_EOL;
         $error['end_date'][$dao->Klantcode] = 'Error. Klantcode: ' . $dao->Klantcode . '. No end date !';
@@ -244,11 +244,11 @@ function civicrm_api3_job_importklanten($params) {
     
     echo('') . '<br/>' . PHP_EOL;
     
-    echo str_repeat(' ',1024*64);
+    /*echo str_repeat(' ',1024*64);
     
     flush();
     ob_flush();
-    sleep(1);
+    sleep(1);*/
     
     /*if($i > 1){
       exit();
